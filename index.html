@@ -1,68 +1,40 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2113.65">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; color: #000000; -webkit-text-stroke: #000000}
-    span.s1 {font-kerning: none}
-    span.s2 {font: 12.0px Times; font-kerning: none; color: #000000}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrap-it Tool</title>
 </head>
 <body>
-<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
-<p class="p1"><span class="s1">&lt;html lang="en"&gt;</span></p>
-<p class="p1"><span class="s1">&lt;head&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;title&gt;Scrap-it Tool&lt;/title&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"&gt;&lt;/script&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;script src="https://unpkg.com/dropbox/dist/Dropbox-sdk.min.js"&gt;&lt;/script&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
-<p class="p1"><span class="s1">&lt;body&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;button id="scrapItButton" style="position:fixed; right:20px; top:50%; transform:translateY(-50%); z-index:1000;"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>Scrap-it</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/button&gt;</span></p>
-<p class="p1"><span class="s1"><br>
-</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;script&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>document.getElementById('scrapItButton').addEventListener('click', function() {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>html2canvas(document.body).then(function(canvas) {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>canvas.toBlob(function(blob) {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>var dbx = new Dropbox.Dropbox({ accessToken: '</span><span class="s2">YOUR_ACCESS_TOKEN</span><span class="s1">' });</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>var folderName = getUserFolder();</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>if (!folderName) return;</span></p>
-<p class="p1"><span class="s1"><br>
-</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>var fileName = folderName + '/' + new Date().toISOString() + '.png';</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>dbx.filesUpload({ path: '/' + fileName, contents: blob })</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>.then(function(response) {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>alert('Screenshot uploaded successfully!');</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>})</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>.catch(function(error) {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>console.error(error);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                            </span>alert('Error uploading screenshot.');</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                        </span>});</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>});</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>});</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>});</span></p>
-<p class="p1"><span class="s1"><br>
-</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>function getUserFolder() {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>let folderName = localStorage.getItem('userFolderName');</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>if (!folderName) {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>folderName = prompt('Please enter your folder name:');</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>if (folderName) {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                    </span>localStorage.setItem('userFolderName', folderName);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>return folderName;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+    <button onclick="scrapIt()">Scrap-it</button>
+
+    <script>
+        function scrapIt() {
+            var url = "https://api.dropboxapi.com/2/users/get_current_account";
+            var token = "sl.B6jv1XBBd9lJuJ6R99eOaHYeVmugWqYh0JCpdr6aLPWeXBo0xza5F1eFD-uAvlYGXHykZdT2Pw_prAy6WFzh-0e6C3Jd1rgjC3tLrEiRRJx3ttFf8dJ5xCRvUy8KprWo0uV5TQ6MJ3Lz"; // Replace with your actual Dropbox Token
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    "Authorization": "Bearer " + token,
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+                alert('Successfully connected to Dropbox!');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to connect to Dropbox.');
+            });
+        }
+    </script>
 </body>
 </html>
